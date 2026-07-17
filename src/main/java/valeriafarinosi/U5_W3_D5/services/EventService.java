@@ -122,6 +122,7 @@ public class EventService {
 
 //        LOG
         log.info("The event with id: " + event.getEventId() + " has been deleted.");
+//could be a good idea to send an email to the partecipants of the event
 
     }
 
