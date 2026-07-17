@@ -10,5 +10,7 @@ import java.util.UUID;
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
 //    existsByBookingDateAndUserId
+//    findByUser
+//    findByEvent
 
 }
