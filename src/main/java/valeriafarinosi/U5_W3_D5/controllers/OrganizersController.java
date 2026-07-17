@@ -1,5 +1,6 @@
 package valeriafarinosi.U5_W3_D5.controllers;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -11,6 +12,7 @@ import valeriafarinosi.U5_W3_D5.payloads.responses.UserResponseDTO;
 import valeriafarinosi.U5_W3_D5.services.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/organizers")
@@ -36,6 +38,22 @@ public class OrganizersController {
         User saved = this.userService.saveOrganizer(payload);
         return new UserResponseDTO(saved.getUserId(), saved.getName(), saved.getSurname(), saved.getEmail(), saved.getRole().name());
 
+    }
+
+    //    GET http://localhost:3003/organizers -> get all Organizers
+    @GetMapping
+    public Page<User> getAllOrganizers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy) {
+
+        return userService.getAll(page, size, sortBy);
+    }
+
+    // GETBYID http://localhost:3003/users/{organizerId}
+    @GetMapping("/{organizerId}")
+    public User getUserById(@PathVariable UUID organizerId) {
+        return userService.findById(organizerId);
     }
 
 }
