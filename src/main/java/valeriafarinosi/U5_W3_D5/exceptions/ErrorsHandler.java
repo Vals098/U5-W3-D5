@@ -33,9 +33,9 @@ public class ErrorsHandler {
         return new ErrorsDTO(ex.getMessage(), LocalDateTime.now());
     }
 
-    @ExceptionHandler(UnauthorizedException.class)
+    @ExceptionHandler(ForbiddenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN) // 403
-    public ErrorsDTO handleForbidden(UnauthorizedException ex) {
+    public ErrorsDTO handleForbidden(ForbiddenException ex) {
         return new ErrorsDTO(ex.getMessage(), LocalDateTime.now());
     }
 

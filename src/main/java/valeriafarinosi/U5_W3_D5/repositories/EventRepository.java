@@ -8,7 +8,6 @@ import valeriafarinosi.U5_W3_D5.entities.Event;
 import valeriafarinosi.U5_W3_D5.entities.User;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -19,5 +18,4 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     //    page
     Page<Event> findByOrganizer(User organizer, Pageable pageable);
 
-    Optional<Event> findByIdAndUpdate(UUID eventId, UUID organizerId);
 }
