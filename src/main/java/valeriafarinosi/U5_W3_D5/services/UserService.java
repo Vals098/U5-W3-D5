@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import valeriafarinosi.U5_W3_D5.entities.User;
+import valeriafarinosi.U5_W3_D5.enums.ROLE;
 import valeriafarinosi.U5_W3_D5.exceptions.BadRequestException;
 import valeriafarinosi.U5_W3_D5.exceptions.NotFoundException;
 import valeriafarinosi.U5_W3_D5.payloads.requests.NewUserDTO;
@@ -29,15 +30,15 @@ public class UserService {
         this.bcrypt = bcrypt;
     }
 
-    //    SAVE
-    public User save(NewUserDTO payload) {
+    //   GENERIC SAVE
+    public User save(NewUserDTO payload, ROLE role) {
 //      1. CONTROLS:
 //       email already existing in db
         if (this.userRepository.existsByEmail(payload.email())) {
             throw new BadRequestException("The email address " + payload.email() + " is already registered! Please log-in.");
         }
 //        2. CREATE NEW USER
-        User newUser = new User(payload.name(), payload.surname(), payload.email(), bcrypt.encode(payload.password()), payload.dateOfBirth());
+        User newUser = new User(payload.name(), payload.surname(), payload.email(), bcrypt.encode(payload.password()), payload.dateOfBirth(), role);
 
 //        3. SAVE IN DB
         User saved = this.userRepository.save(newUser);
@@ -48,6 +49,16 @@ public class UserService {
 //        5. RETURN
         return saved;
 
+    }
+
+    //    USER SAVE
+    public User saveUser(NewUserDTO payload) {
+        return save(payload, ROLE.USER);
+    }
+
+    //    ORGANIZER SAVE
+    public User saveOrganizer(NewUserDTO payload) {
+        return save(payload, ROLE.EVENT_ORGANIZER);
     }
 
     //    FINDALL

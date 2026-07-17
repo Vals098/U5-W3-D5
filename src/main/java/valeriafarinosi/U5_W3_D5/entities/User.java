@@ -48,12 +48,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private ROLE role;
 
-    public User(String name, String surname, String email, String password, LocalDate dateOfBirth) {
+    public User(String name, String surname, String email, String password, LocalDate dateOfBirth, ROLE role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.role = role;
     }
 
     @Override
