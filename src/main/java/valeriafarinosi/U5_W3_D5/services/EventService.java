@@ -86,9 +86,10 @@ public class EventService {
             throw new ForbiddenException("Only event organizers can create events.");
         }
 //        only the creator can update
-        if (event.getOrganizer().getUserId().equals(organizerId)) {
+        if (!event.getOrganizer().getUserId().equals(organizerId)) {
             throw new ForbiddenException("You can only edit the events you created.");
         }
+
 
 //        UPDATE
         event.setTitle(payload.title());
@@ -113,7 +114,7 @@ public class EventService {
         }
 
         //        only the creator can delete
-        if (event.getOrganizer().getUserId().equals(organizerId)) {
+        if (!event.getOrganizer().getUserId().equals(organizerId)) {
             throw new ForbiddenException("You can only delete the events you created.");
         }
 
